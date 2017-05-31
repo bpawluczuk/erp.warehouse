@@ -1,0 +1,65 @@
+<div class="panel panel-default">
+    <div class="container-fluid">
+
+        <div class="row">
+
+            <table class="table table-hover table-bordered">
+                <thead>
+                <tr class="table-header">
+                    <th class="details"></th>
+                    <th class="input-date">Date Delivery</th>
+                    <th>Description</th>
+                </tr>
+                </thead>
+                <tbody ng-repeat="delivery in deliveryList.items track by $index">
+                <tr>
+                    <td class="details" data-ng-click="details(delivery.entityId)">
+                        <span class="glyphicon" ng-class="delivery.entityId==index ? 'glyphicon-minus' : 'glyphicon-plus'" aria-hidden="true"></span>
+                    </td>
+                    <td><span ng-bind="delivery.deliveryDate | date : 'dd.MM.yyyy  HH:mm:ss'"></span></td>
+                    <td><span ng-bind="delivery.deliveryDescription"></span></td>
+                </tr>
+                <tr class="line" data-line="{{delivery.entityId}}"
+                    ng-class="delivery.entityId==index ? '' : 'hidden'">
+                    <td colspan="3">
+
+                        <div class="line-row">
+
+                            <table class="table table-hover table-bordered">
+                                <thead>
+                                <tr class="table-header">
+                                    <th>Products</th>
+                                    <th class="input-quantity">Quantity</th>
+                                    <th class="input-price">Price</th>
+                                    <th class="input-currency">Currency</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="deliveryLine in delivery.deliveryLines">
+                                    <td><span ng-bind="deliveryLine.product.name"></span></td>
+                                    <td><span ng-bind="deliveryLine.quantity"></span></td>
+                                    <td><span ng-bind="deliveryLine.price.value"></span></td>
+                                    <td><span ng-bind="deliveryLine.price.currency"></span></td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+    <div class="center">
+        <ul class="pagination">
+            <li ng-class="item==page ? 'active' : ''" ng-repeat="item in deliveryList.pages">
+                <a href="#" ng-click="paginate(item)">{{item}}</a>
+            </li>
+        </ul>
+    </div>
+
+</div>

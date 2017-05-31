@@ -1,0 +1,65 @@
+<div class="panel panel-default">
+    <div class="container-fluid">
+
+        <div class="row">
+
+            <table class="table table-hover table-bordered">
+                <thead>
+                <tr class="table-header">
+                    <th class="details"></th>
+                    <th class="input-date">Date Release</th>
+                    <th>Description</th>
+                </tr>
+                </thead>
+                <tbody ng-repeat="release in releaseList.items track by $index">
+                <tr>
+                    <td class="details" data-ng-click="details(release.entityId)">
+                        <span class="glyphicon" ng-class="release.entityId==index ? 'glyphicon-minus' : 'glyphicon-plus'" aria-hidden="true"></span>
+                    </td>
+                    <td><span ng-bind="release.releaseDate | date : 'dd.MM.yyyy  HH:mm:ss'"></span></td>
+                    <td><span ng-bind="release.releaseDescription"></span></td>
+                </tr>
+                <tr class="line" data-line="{{release.entityId}}"
+                    ng-class="release.entityId==index ? '' : 'hidden'">
+                    <td colspan="3">
+
+                        <div class="line-row">
+
+                            <table class="table table-hover table-bordered">
+                                <thead>
+                                <tr class="table-header">
+                                    <th>Products</th>
+                                    <th class="input-quantity">Quantity</th>
+                                    <th class="input-price">Price</th>
+                                    <th class="input-currency">Currency</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="releaseLine in release.releaseLines">
+                                    <td><span ng-bind="releaseLine.product.name"></span></td>
+                                    <td><span ng-bind="releaseLine.quantity"></span></td>
+                                    <td><span ng-bind="releaseLine.price.value"></span></td>
+                                    <td><span ng-bind="releaseLine.price.currency"></span></td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+    <div class="center">
+        <ul class="pagination">
+            <li ng-class="item==page ? 'active' : ''" ng-repeat="item in releaseList.pages">
+                <a href="#" ng-click="paginate(item)">{{item}}</a>
+            </li>
+        </ul>
+    </div>
+
+</div>

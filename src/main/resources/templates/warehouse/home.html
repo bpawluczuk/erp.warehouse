@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Home</title>
+
+    <link rel="stylesheet" type="text/css" href="/lib/bootstrap-3.3.7-dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/lib/jquery-ui-1.12.1.custom/jquery-ui.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/app.css"/>
+
+</head>
+
+<body ng-app="home" class="ng-cloak" id="mainWrapper">
+
+<div class="generic-container" ng-controller="homeCtrl">
+
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/warehouse" ng-class="{ active: isCurrentPath('/warehouse') }">Warehouse</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li><a href="/warehouse/release/create" ng-class="{ active: isCurrentPath('/warehouse/release/create') }">Create release</a></li>
+                <li><a href="/warehouse/delivery/create" ng-class="{ active: isCurrentPath('/warehouse/delivery/create') }">Create delivery</a></li>
+                <li><a href="/warehouse/products" ng-class="{ active: isCurrentPath('/warehouse/products') }">Products Catalog</a></li>
+                <li><a href="/warehouse/release" ng-class="{ active: isCurrentPath('/warehouse/release') }">Release list</a></li>
+                <li><a href="/warehouse/delivery" ng-class="{ active: isCurrentPath('/warehouse/delivery') }">Delivery list</a></li>
+                <li><a href="/warehouse/events" ng-class="{ active: isCurrentPath('/warehouse/events') }">Events list</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <ng-view></ng-view>
+
+    <!--<div class="well">-->
+        <!--$location.path() = {{$location.path()}}<br/>-->
+        <!--$route.current.templateUrl = {{$route.current.templateUrl}}<br/>-->
+        <!--$route.current.params = {{$route.current.params}}<br/>-->
+        <!--$route.current.scope.name = {{$route.current.scope.name}}<br/>-->
+        <!--$routeParams = {{$routeParams}}-->
+    <!--</div>-->
+
+</div>
+
+</body>
+</html>
+
+<script src="/lib/jquery-3.1.1/jquery-3.1.1.min.js"></script>
+<script src="/lib/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+<script src="/lib/angular-1.6.1/angular.min.js"></script>
+<script src="/lib/angular-1.6.1/angular-route.min.js"></script>
+<script src="/lib/angular-dynamic-number/dynamic-number.min.js"></script>
+<script src="/lib/ng-file-upload-master/dist/ng-file-upload.min.js"></script>
+
+<script src="/js/app.js"></script>
+
+<script src="/angularJs/warehouse/config.js"></script>
+<script src="/angularJs/warehouse/home.js"></script>
+<script src="/angularJs/warehouse/warehouse.js"></script>
+<script src="/angularJs/warehouse/product.js"></script>
+<script src="/angularJs/warehouse/delivery.js"></script>
+<script src="/angularJs/warehouse/release.js"></script>
+<script src="/angularJs/warehouse/events.js"></script>
+
+<script type="text/javascript">
+    angular.element(document.getElementsByTagName('head')).append(angular.element('<base href="/warehouse" />'));
+</script>

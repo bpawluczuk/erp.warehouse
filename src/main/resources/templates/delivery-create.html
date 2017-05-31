@@ -1,0 +1,117 @@
+<form ng-submit="submit()" name="deliveryLinesForm" novalidate="novalidate">
+    <div class="panel panel-default">
+        <div class="panel-heading">Delivery details:</div>
+        <div class="panel-body">
+
+            <div class="has-error" ng-show="deliveryLinesForm.$dirty">
+                <div class="alert alert-danger" ng-show="!deliveryLinesForm.$valid">
+                    <p><span>Fill in the required fields.</span></p>
+                    <p><span ng-show="checkAtLeast()">Mark products to delivery.</span></p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <input type="text" required="required" class="form-control"
+                           ng-model="deliveryLines.deliveryDescription"
+                           placeholder="Enter delivery description"
+                           ng-class="deliveryLinesForm.deliveryDescription.$error.required && deliveryLinesForm.$dirty ? 'invalid':''"
+                           name="deliveryDescription"/>
+                </div>
+            </div>
+
+            <br/>
+
+            <div class="row">
+                <div class="form-actions floatRight">
+                    <button class="btn btn-primary btn-sm" ng-disabled="deliveryLinesForm.$invalid">Submit</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">List of Products</div>
+        <div class="tablecontainer">
+
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th class="product-sm-image"></th>
+                    <th>Name</th>
+                    <th class="input-type">Type</th>
+                    <th class="input-text">Quantity</th>
+                    <th class="input-text">Price</th>
+                    <th class="input-currency-select">Currency</th>
+                    <th class="input-mark">Mark to delivery</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in productList.items">
+                    <td>
+                        <div class="blank-photo"></div>
+                    </td>
+                    <td><span ng-bind="item.name"></span></td>
+                    <td><span ng-bind="item.type"></span></td>
+                    <td>
+                        <input type="hidden"
+                               ng-model="deliveryLines[$index].entityId"
+                               name="productId"
+                               ng-init="deliveryLines[$index].productId=item.entityId"
+                               data-index="{{$index}}"
+                        />
+                        <input type="text"
+                               placeholder='0'
+                               class="form-control"
+                               name="quantity_{{$index}}"
+                               ng-class="deliveryLinesForm.quantity_{{$index}}.$error.required && deliveryLinesForm.$dirty ? 'invalid':''"
+                               ng-required="deliveryLines[$index].checked"
+                               data-index="{{$index}}"
+                               ng-model="deliveryLines[$index].quantity"
+                               awnum="quantity"
+                        />
+                    </td>
+                    <td>
+                        <input type="text"
+                               placeholder='0.00'
+                               class="form-control"
+                               name="price_{{$index}}"
+                               ng-class="deliveryLinesForm.price_{{$index}}.$error.required && deliveryLinesForm.$dirty ? 'invalid':''"
+                               ng-required="deliveryLines[$index].checked"
+                               data-index="{{$index}}"
+                               ng-model="deliveryLines[$index].price.value"
+                               awnum="price"
+                        />
+                    </td>
+                    <td>
+                        <select ng-model="deliveryLines[$index].price.currencyCode"
+                                ng-init="deliveryLines[$index].price.currencyCode=options[0].value"
+                                ng-options="option.value as option.name for option in options" required="required"
+                                class="form-control">
+                        </select>
+                    </td>
+                    <td align="center">
+                        <input type="checkbox"
+                               name="checked_{{$index}}"
+                               data-index="{{$index}}"
+                               ng-required="checkAtLeast()"
+                               ng-model="deliveryLines[$index].checked"
+                        />
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+        <div class="center">
+            <ul class="pagination">
+                <li ng-class="item==page ? 'active' : ''" ng-repeat="item in productList.pages">
+                    <a href="#" ng-click="paginate(item)">{{item}}</a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</form>

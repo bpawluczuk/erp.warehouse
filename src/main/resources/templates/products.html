@@ -1,0 +1,102 @@
+<form ng-submit="submit()" name="productEditForm" class="form-horizontal" novalidate="novalidate">
+
+    <input type="hidden" ng-model="product.entityId"/>
+
+    <div class="panel panel-default">
+
+        <div class="panel-heading">Product edit details:</div>
+
+        <div class="panel-body">
+
+            <div class="has-error" ng-show="productEditForm.$dirty">
+                <div class="alert alert-danger" ng-show="!productEditForm.$valid">
+                    <span ng-show="productEditForm.productname.$error.required">Fill in the required fields.</span>
+                    <span ng-show="productEditForm.productname.$error.minlength">Minimum length required is 3</span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-2">
+                    <div class="blank-photo"></div>
+                </div>
+                <div class="col-sm-7">
+                    <input type="text"
+                           required="required"
+                           class="form-control"
+                           ng-model="product.name"
+                           placeholder="Enter product name"
+                           ng-minlength="3"
+                           name="productname"
+                           ng-class="productEditForm.productname.$error.required && productEditForm.$dirty ? 'invalid':''"
+                    />
+                </div>
+                <div class="col-sm-3">
+                    <select ng-model="product.type"
+                            ng-init="product.type=options[0].value"
+                            ng-options="option.value as option.name for option in options" required="required"
+                            class="form-control">
+                    </select>
+                </div>
+            </div>
+
+            <br/>
+
+            <div class="row">
+                <div class="form-actions floatRight">
+                    <button class="btn btn-primary btn-sm" ng-disabled="productEditForm.$invalid">
+                        {{!product.entityId ? 'Add' : 'Update'}}
+                    </button>
+                    <button type="button" ng-click="reset()" class="btn btn-warning btn-sm"
+                            ng-disabled="productEditForm.$pristine">
+                        Reset Form
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</form>
+
+<div class="panel panel-default">
+
+    <div class="panel-heading">Products list</div>
+
+    <div class="tablecontainer">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th class="product-sm-image"></th>
+                <th>Product name</th>
+                <th class="input-type">Type</th>
+                <th class="action"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="item in productList.items">
+                <td>
+                    <div class="blank-photo"></div>
+                </td>
+                <td><span ng-bind="item.name"></span></td>
+                <td><span class="table-text" ng-bind="item.type"></span></td>
+                <td>
+                    <button type="button" ng-click="edit(item.entityId)" class="btn btn-primary btn-sm">
+                        Edit
+                    </button>
+                    <button type="button" ng-click="remove(item.entityId)" ng-confirm-message="Do you want to delete product?" class="btn btn-danger btn-sm">
+                        Remove
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="center">
+        <ul class="pagination">
+            <li ng-class="item==page ? 'active' : ''" ng-repeat="item in productList.pages"><a href="#"
+                                                                                               ng-click="paginate(item)">{{item}}</a>
+            </li>
+        </ul>
+    </div>
+
+</div>

@@ -1,0 +1,131 @@
+.table > tbody > tr > td {
+    vertical-align: middle
+}
+.navbar-nav > li > a.active {
+    color: white;
+}
+.table>tbody+tbody{
+    border-top: 1px solid #ddd;
+}
+.table-bordered>thead>tr>td, .table-bordered>thead>tr>th{
+    border-bottom-width: 1px;
+}
+.table{
+    margin-bottom: 0;
+}
+
+.invalid{
+    border: 1px solid red;
+}
+.cursor{
+    cursor: pointer;
+}
+th.details {
+    width: 30px;
+}
+th.input-text {
+    width: 100px;
+}
+th.input-type {
+    width: 120px;
+}
+th.input-date {
+    width: 130px;
+}
+th.product-sm-image{
+    width: 80px;
+}
+th.action {
+    width: 160px;
+}
+th.input-currency{
+    width: 70px;
+}
+th.input-currency-select{
+    width: 90px;
+}
+th.input-price{
+    width: 70px;
+}
+th.input-quantity{
+    width: 70px;
+}
+th.input-mark{
+    width: 70px;
+}
+th.input-delivery{
+    width: 30px;
+}
+th.input-release{
+    width: 70px;
+}
+
+.center {
+    text-align: center;
+}
+.details {
+    cursor: pointer;
+}
+.line-row {
+    width: 100%;
+    float: right;
+}
+.table-header{
+    color: #333;
+    background-color: #f5f5f5;
+    border-color: #ddd;
+}
+.line{}
+.blank-photo{
+    float: left;
+    width: 60px;
+    height: 40px;
+    background-image : url('../images/blank-photo.png');
+    background-repeat : no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+/*-----------------------------------------*/
+body {
+    width: 100%;
+    background-color: rgb(245, 245, 245);
+}
+
+body, .form-control {
+    font-size: 12px !important;
+}
+
+.floatRight {
+    float: right;
+    margin-right: 18px;
+}
+
+.has-error {
+    color: red;
+}
+
+.formcontainer {
+    background-color: #DAE8E8;
+    padding: 20px;
+}
+
+.tablecontainer {
+    padding-left: 20px;
+}
+
+.generic-container {
+    width: 70%;
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #EAE7E7;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 0 30px black;
+}
+
+.custom-width {
+    width: 80px !important;
+}

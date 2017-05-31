@@ -1,0 +1,108 @@
+<div class="panel panel-default">
+    <div class="container-fluid">
+
+        <div class="row">
+
+            <table class="table table-hover table-bordered">
+                <thead>
+                <tr class="table-header">
+                    <th class="details"></th>
+                    <th class="product-sm-image"></th>
+                    <th>Product name</th>
+                    <th class="input-quantity">Quantity</th>
+                    <th class="input-type">Type</th>
+                </tr>
+                </thead>
+                <tbody ng-repeat="availability in availabilityList.items">
+                <tr>
+                    <td class="details" data-ng-click="details(availability.entityId)">
+                        <span class="glyphicon"
+                              ng-class="availability.entityId==index ? 'glyphicon-minus' : 'glyphicon-plus'"
+                              aria-hidden="true"></span>
+                    </td>
+                    <td>
+                        <div class="blank-photo"></div>
+                    </td>
+                    <td><span ng-bind="availability.product.name"></span></td>
+                    <td><span ng-bind="availability.quantity"></span></td>
+                    <td><span ng-bind="availability.product.type"></span></td>
+                </tr>
+                <tr class="line" data-line="{{availability.entityId}}" ng-class="availability.entityId==index ? '' : 'hidden'">
+                    <td colspan="5">
+
+                        <div class="line-row">
+                            <table class="table table-hover table-bordered">
+                                <thead>
+                                <tr class="table-header">
+                                    <th class="input-delivery cursor"></th>
+                                    <th class="input-date">Date Delivery</th>
+                                    <th>Product name</th>
+                                    <th class="input-quantity">Quantity</th>
+                                    <th class="input-price">Price</th>
+                                    <th class="input-currency">Currency</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="deliveryLine in availability.deliveryLines">
+                                    <td class="cursor">
+                                        <span class="glyphicon glyphicon-new-window" aria-hidden="true"
+                                              ng-click="gotoDelivery(deliveryLine.deliveryId)"></span>
+                                    </td>
+                                    <td><span
+                                            ng-bind="deliveryLine.deliveryDate | date : 'dd.MM.yyyy  HH:mm:ss'"></span>
+                                    </td>
+                                    <td><span ng-bind="deliveryLine.product.name"></span></td>
+                                    <td><span ng-bind="deliveryLine.quantity"></span></td>
+                                    <td><span ng-bind="deliveryLine.price.value"></span></td>
+                                    <td><span ng-bind="deliveryLine.price.currency"></span></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="line-row" style="margin-top: 8px">
+                            <table class="table table-hover table-bordered">
+                                <thead>
+                                <tr class="table-header">
+                                    <th class="input-delivery cursor"></th>
+                                    <th class="input-date">Date Release</th>
+                                    <th>Product name</th>
+                                    <th class="input-quantity">Quantity</th>
+                                    <th class="input-price">Price</th>
+                                    <th class="input-currency">Currency</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="releaseLine in availability.releaseLines">
+                                    <td class="cursor">
+                                        <span class="glyphicon glyphicon-new-window" aria-hidden="true"
+                                              ng-click="gotoRelease(releaseLine.releaseId)"></span>
+                                    </td>
+                                    <td><span ng-bind="releaseLine.releaseDate | date : 'dd.MM.yyyy  HH:mm:ss'"></span>
+                                    </td>
+                                    <td><span ng-bind="releaseLine.product.name"></span></td>
+                                    <td><span ng-bind="releaseLine.quantity"></span></td>
+                                    <td><span ng-bind="releaseLine.price.value"></span></td>
+                                    <td><span ng-bind="releaseLine.price.currency"></span></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+    <div class="center">
+        <ul class="pagination">
+            <li ng-class="item==page ? 'active' : ''" ng-repeat="item in availabilityList.pages">
+                <a href="#" ng-click="paginate(item)">{{item}}</a>
+            </li>
+        </ul>
+    </div>
+
+</div>

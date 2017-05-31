@@ -1,0 +1,32 @@
+<div class="panel panel-default">
+    <div class="panel-heading">Events list</div>
+    <div class="tablecontainer">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>Type Action</th>
+                <th>Aggregate type</th>
+                <th>Data</th>
+                <th>Created</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="item in eventList.items">
+                <td><span ng-bind="item.actionType"></span></td>
+                <td><span ng-bind="item.aggregateType"></span></td>
+                <td><span ng-bind="item.data"></span></td>
+                <td><span ng-bind="item.eventCreated | date : 'dd.MM.yyyy  HH:mm:ss'"></span></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="center">
+        <ul class="pagination">
+            <li ng-class="item==page ? 'active' : ''" ng-repeat="item in eventList.pages">
+                <a href="#" ng-click="paginate(item)">{{item}}</a>
+            </li>
+        </ul>
+    </div>
+
+</div>

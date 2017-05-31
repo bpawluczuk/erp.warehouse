@@ -1,0 +1,140 @@
+<form ng-submit="submit()" name="releaseLinesForm" novalidate="novalidate">
+    <div class="panel panel-default">
+        <div class="panel-heading">Release details:</div>
+        <div class="panel-body">
+
+            <div class="has-error" ng-show="releaseLinesForm.$dirty">
+                <div class="alert alert-danger" ng-show="!releaseLinesForm.$valid">
+                    <p><span>Fill in the required fields.</span></p>
+                    <p><span ng-show="checkAtLeast()">Mark products to release.</span></p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <input type="text" required="required" class="form-control"
+                           ng-model="releaseLines.releaseDescription"
+                           placeholder="Enter release description"
+                           ng-class="releaseLinesForm.releaseDescription.$error.required && releaseLinesForm.$dirty ? 'invalid':''"
+                           name="releaseDescription"/>
+                </div>
+            </div>
+
+            <br/>
+
+            <div class="row">
+                <div class="form-actions floatRight">
+                    <button class="btn btn-primary btn-sm" ng-disabled="releaseLinesForm.$invalid">Submit</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">List of Products</div>
+        <div class="tablecontainer">
+
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th class="product-sm-image"></th>
+                    <th>Name</th>
+                    <th class="input-type">Type</th>
+                    <th class="input-text">Quantity</th>
+                    <th class="input-text">Availability</th>
+                    <th class="input-text">Price</th>
+                    <th class="input-currency-select">Currency</th>
+                    <th class="input-mark">Mark to release</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in productList.items">
+                    <td>
+                        <div class="blank-photo"></div>
+                    </td>
+                    <td><span ng-bind="item.product.name"></span></td>
+                    <td><span ng-bind="item.product.type"></span></td>
+                    <td>
+                        <input type="hidden"
+                               ng-model="releaseLines[$index].productId"
+                               name="productId"
+                               ng-init="releaseLines[$index].productId=item.product.entityId"
+                               data-index="{{$index}}"
+                        />
+                        <input type="hidden"
+                               ng-model="releaseLines[$index].entityId"
+                               name="deliveryLineId"
+                               ng-init="releaseLines[$index].deliveryLineId=item.entityId"
+                               data-index="{{$index}}"
+                        />
+                        <input type="hidden"
+                               ng-model="releaseLines[$index].releaseId"
+                               name="releaseId"
+                               ng-init="releaseLines[$index].releaseId=0"
+                               data-index="{{$index}}"
+                        />
+                        <input type="text"
+                               placeholder='0'
+                               class="form-control"
+                               name="quantity_{{$index}}"
+                               ng-class="releaseLinesForm.quantity_{{$index}}.$error.required && releaseLinesForm.$dirty ? 'invalid':''"
+                               ng-required="releaseLines[$index].checked"
+                               data-index="{{$index}}"
+                               ng-model="releaseLines[$index].quantity"
+                               awnum="quantity"
+                        />
+                    </td>
+                    <td>
+                        <input type="text"
+                               placeholder='0.00'
+                               class="form-control"
+                               value="{{item.quantity}}"
+                               readonly="readonly"
+                        />
+                    </td>
+                    <td>
+                        <input type="text"
+                               placeholder='0.00'
+                               class="form-control"
+                               readonly="readonly"
+                               name="price_{{$index}}"
+                               data-index="{{$index}}"
+                               ng-init="releaseLines[$index].price.value=item.price.value"
+                               ng-model="releaseLines[$index].price.value"
+                               awnum="price"
+                        />
+                    </td>
+                    <td>
+                        <select ng-model="releaseLines[$index].price.currencyCode"
+                                readonly="readonly"
+                                ng-init="releaseLines[$index].price.currencyCode=item.price.currencyCode"
+                                ng-options="option.value as option.name for option in options"
+                                required="required"
+                                class="form-control">
+                        </select>
+                    </td>
+                    <td align="center">
+                        <input type="checkbox"
+                               name="checked_{{$index}}"
+                               data-index="{{$index}}"
+                               ng-required="checkAtLeast()"
+                               ng-model="releaseLines[$index].checked"
+                        />
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+        <div class="center">
+            <ul class="pagination">
+                <li ng-class="item==page ? 'active' : ''" ng-repeat="item in productList.pages">
+                    <a href="#" ng-click="paginate(item)">{{item}}</a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</form>
